@@ -5,7 +5,6 @@ import 'package:bpp_shop/grocery/ui/view/home_page/component/trending.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import '../../../core/controller/app_state_controller.dart';
 import '../../../core/controller/home_page_event_handeller.dart';
 import '../my_card/my card.dart';
@@ -30,12 +29,10 @@ class _Hamburger1State extends State<Hamburger1> {
       width: MediaQuery.of(context).size.width,
       child: Drawer(
         child: Scaffold(
-
           body: ListView(
             children: [
               ListTile(
-
-               trailing:  IconButton(
+                trailing: IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -46,19 +43,21 @@ class _Hamburger1State extends State<Hamburger1> {
                   ),
                   alignment: Alignment.topRight,
                 ),
-                title:Row(
-mainAxisAlignment: MainAxisAlignment.center,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       'Offers',
                       style: TextStyle(fontSize: 18),
                     ),
-                    const SizedBox(width: 20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     Container(
                       height: 35,
                       width: 35,
                       decoration: BoxDecoration(
-                        border: Border.all(color:Color(0xFFE37D4E), width: 2),
+                        border: Border.all(color: Color(0xFFE37D4E), width: 2),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
@@ -66,11 +65,11 @@ mainAxisAlignment: MainAxisAlignment.center,
                       child: const Center(
                         child: Text(
                           '25',
-                          style: TextStyle(fontSize: 18, color: Color(0xFFE37D4E)),
+                          style:
+                              TextStyle(fontSize: 18, color: Color(0xFFE37D4E)),
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -79,18 +78,15 @@ mainAxisAlignment: MainAxisAlignment.center,
                 thickness: .5,
                 indent: 15,
                 endIndent: 15,
-
               ),
               ListTile(
                 onTap: () {
-                  final pageState = Provider.of<AppStateController>(
-                      context,
-                      listen: false);
+                  final pageState =
+                      Provider.of<AppStateController>(context, listen: false);
                   pageState.setAppBarViewState(false);
                   pageState.setSecondaryPageState(true);
                   pageState.setSecondaryCurrentIndex(1);
-                  customScafoldKey.scaffoldKey.currentState!
-                      .openEndDrawer();
+                  customScafoldKey.scaffoldKey.currentState!.openEndDrawer();
                 },
                 leading: Icon(
                   Icons.category,
@@ -106,10 +102,8 @@ mainAxisAlignment: MainAxisAlignment.center,
               ),
               ListTile(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TopDealsPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TopDealsPage()));
                 },
                 leading: Icon(
                   Icons.add_shopping_cart_rounded,
@@ -133,7 +127,6 @@ mainAxisAlignment: MainAxisAlignment.center,
                 },
                 leading: Icon(
                   Icons.trending_up,
-
                   color: Colors.green,
                 ),
                 title: Text(
@@ -166,14 +159,12 @@ mainAxisAlignment: MainAxisAlignment.center,
               ),
               ListTile(
                 onTap: () {
-                  final pageState = Provider.of<AppStateController>(
-                      context,
-                      listen: false);
+                  final pageState =
+                      Provider.of<AppStateController>(context, listen: false);
                   pageState.setAppBarViewState(false);
                   pageState.setSecondaryPageState(true);
                   pageState.setSecondaryCurrentIndex(6);
-                  customScafoldKey.scaffoldKey.currentState!
-                      .openEndDrawer();
+                  customScafoldKey.scaffoldKey.currentState!.openEndDrawer();
                 },
                 leading: Icon(
                   Icons.local_offer,
@@ -189,14 +180,12 @@ mainAxisAlignment: MainAxisAlignment.center,
               ),
               ListTile(
                 onTap: () {
-                  final pageState = Provider.of<AppStateController>(
-                      context,
-                      listen: false);
+                  final pageState =
+                      Provider.of<AppStateController>(context, listen: false);
                   pageState.setAppBarViewState(false);
                   pageState.setSecondaryPageState(true);
                   pageState.setSecondaryCurrentIndex(4);
-                  customScafoldKey.scaffoldKey.currentState!
-                      .openEndDrawer();
+                  customScafoldKey.scaffoldKey.currentState!.openEndDrawer();
                 },
                 // onTap: () {
                 //
@@ -219,17 +208,14 @@ mainAxisAlignment: MainAxisAlignment.center,
                 ),
               ),
               ListTile(
-        onTap: () {
-      final pageState = Provider.of<AppStateController>(
-          context,
-          listen: false);
-      pageState.setAppBarViewState(false);
-      pageState.setSecondaryPageState(true);
-      pageState.setSecondaryCurrentIndex(5);
-      customScafoldKey.scaffoldKey.currentState!
-          .openEndDrawer();
-    },
-
+                onTap: () {
+                  final pageState =
+                      Provider.of<AppStateController>(context, listen: false);
+                  pageState.setAppBarViewState(false);
+                  pageState.setSecondaryPageState(true);
+                  pageState.setSecondaryCurrentIndex(5);
+                  customScafoldKey.scaffoldKey.currentState!.openEndDrawer();
+                },
                 leading: Icon(
                   Icons.fast_forward_outlined,
                   color: Colors.green,

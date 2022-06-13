@@ -74,7 +74,7 @@ class _ScreenSubCategoryState extends State<ScreenSubCategory> {
         elevation: 0,
         backgroundColor: Color(0xFFE37D4E),
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             _scafoldKey.currentState!.openDrawer();
           },
           icon: Icon(
@@ -138,10 +138,15 @@ class _ScreenSubCategoryState extends State<ScreenSubCategory> {
                   itemCount: subCategoryList!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () async{
+                      onTap: () async {
                         //await getList(widget.categoryId,subCategoryList![index].id.toString());
-                        print(widget.categoryId.toString()+subCategoryList![index].id.toString());
-                        await getSubSubCategory(widget.categoryId,subCategoryList![index].id.toString(),context,subCategoryList![index].subCategoryName.toString());
+                        print(widget.categoryId.toString() +
+                            subCategoryList![index].id.toString());
+                        await getSubSubCategory(
+                            widget.categoryId,
+                            subCategoryList![index].id.toString(),
+                            context,
+                            subCategoryList![index].subCategoryName.toString());
                         // getsubsubcategoryList!=null?Navigator.of(context).push(
                         //   MaterialPageRoute(
                         //     builder: (context) => ScreenSubSubCategory(
@@ -199,8 +204,10 @@ class _ScreenSubCategoryState extends State<ScreenSubCategory> {
                   itemBuilder: (context, index) {
                     return Shimmer(
                       duration: Duration(seconds: 2), //Default value
-                      interval: Duration(seconds: 1), //Default value: Duration(seconds: 0)
-                      color: Colors.black,//Colors.grey.shade700, //Default value
+                      interval: Duration(
+                          seconds: 1), //Default value: Duration(seconds: 0)
+                      color:
+                          Colors.black, //Colors.grey.shade700, //Default value
                       colorOpacity: 0, //Default value
                       enabled: true, //Default value
                       direction: ShimmerDirection.fromLTRB(),

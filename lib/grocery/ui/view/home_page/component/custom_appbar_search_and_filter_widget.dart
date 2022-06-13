@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../core/controller/app_state_controller.dart';
 import '../../../../core/controller/home_page_event_handeller.dart';
 import '../../../constant/app_colors.dart';
@@ -17,22 +15,19 @@ class CustomAppBarSearchAndFilterWidget extends StatefulWidget {
 }
 
 class _CustomAppBarSearchAndFilterWidgetState
-    extends State<CustomAppBarSearchAndFilterWidget>{
-
+    extends State<CustomAppBarSearchAndFilterWidget> {
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     final customScafoldKey = Provider.of<CustomScafoldKey>(context);
     return Column(
       children: [
         //SizedBox(height: 20,),
         SizedBox(
-          height: 60,
+          height: 30,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             fit: StackFit.expand,
             children: [
-
               ListTile(
                 leading: GestureDetector(
                   onTap: () {
@@ -45,28 +40,31 @@ class _CustomAppBarSearchAndFilterWidgetState
 //                       child: Image.asset("images/hamburger_menu.png"),
 // =======
                     final customScafoldKey =
-                    Provider.of<CustomScafoldKey>(context, listen: false);
+                        Provider.of<CustomScafoldKey>(context, listen: false);
                     customScafoldKey.scaffoldKey.currentState!.openDrawer();
                   },
                   child: SizedBox(
-                    height: 50,
+                    height: 20,
                     width: 50,
-                    child: Image.asset("images/menu.png"),
+                    child: Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/VisualEditor_-_Icon_-_Menu.svg/2048px-VisualEditor_-_Icon_-_Menu.svg.png", color: Colors.green,),
+                    //child: Image.asset("images/menu.png"),
                   ),
                 ),
-                title:  Text('Grocery',textAlign: TextAlign.center, style: TextStyle(
-                  color: Colors.green,
-
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),),
-                trailing:  SizedBox(
+                title: Text(
+                  'Grocery',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: SizedBox(
                   height: 50,
                   width: 50,
                   //child:Container(),
                 ),
               ),
-
             ],
           ),
         ),
@@ -98,7 +96,6 @@ class _CustomAppBarSearchAndFilterWidgetState
                         child: Icon(
                           Icons.search,
                         ),
-
                       ),
                       hintText: 'Search Products',
                       hintStyle: TextStyle(fontSize: 16),

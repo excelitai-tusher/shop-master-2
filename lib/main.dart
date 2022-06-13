@@ -40,6 +40,8 @@ import 'bpp/screen/address/demo_address.dart';
 import 'bpp/screen/order/order details.dart';
 import 'fashion/controller/app_bar_controler.dart';
 import 'fashion/view/home_page/home_page.dart';
+import 'grocery/ui/view/hamburger/hamburger1.dart';
+import 'grocery/ui/view/home_page/component/categories_list_view.dart';
 import 'grocery/ui/view/home_page/home_page_main.dart';
 
 final List<String> imgList = [
@@ -199,7 +201,7 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: TrackOrder(),//HomePage(),//BottomNavBar(currentTab: 0,currentScreen: HomeScreen(),),
+          home: GroceryHomePage(),//BottomNavBar(currentTab: 0,currentScreen: HomeScreen(),),
           //home:EmailLogin(),
           routes: {
             ProductDetails.routeName: (context) => ProductDetails(),

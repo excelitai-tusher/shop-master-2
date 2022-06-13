@@ -80,7 +80,6 @@ class _GroceryHomePageState extends State<GroceryHomePage> {
             height: 50,
             color: Color(0xffF3D0B7),
             child: CarouselSlider.builder(
-
                 itemCount: apps.length,
                 options: CarouselOptions(
                     viewportFraction:.4,
