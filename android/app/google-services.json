@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "151455301085",
+    "project_id": "bpp-shop--auth",
+    "storage_bucket": "bpp-shop--auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151455301085:android:3205ca57cc6aa1c707ca34",
+        "android_client_info": {
+          "package_name": "com.example.bpp_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151455301085-guoc5tpjj4l5fpoenuvmv6lhilqi2pc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bpp_shop",
+            "certificate_hash": "af4fcf25a37708f93baf4f1d4359e87fb2b1af7a"
+          }
+        },
+        {
+          "client_id": "151455301085-pi1godgu2cd613sbvgkqd3jluuqqifb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCYRb8AFmxVos0rsY3GiF0leTVc5yFC_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151455301085-pi1godgu2cd613sbvgkqd3jluuqqifb4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
