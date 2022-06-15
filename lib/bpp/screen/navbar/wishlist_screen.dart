@@ -9,8 +9,6 @@ class WishListScreen extends StatelessWidget {
       body: Container(
         child: Text('wishlist'),
       ),
-
-
       //  bottomNavigationBar: BottomNavBar(),
     );
   }

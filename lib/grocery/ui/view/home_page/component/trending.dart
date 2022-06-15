@@ -1,135 +1,252 @@
-import 'package:bpp_shop/grocery/core/model/deals_of_the_day_model.dart';
-import 'package:bpp_shop/grocery/ui/constant/app_colors.dart';
+import 'package:bpp_shop/bpp/component/gradient_text.dart';
+import 'package:bpp_shop/models/islamic/trending_product_model.dart';
+import 'package:bpp_shop/view_model/islamic/http_trending_product.dart';
 import 'package:flutter/material.dart';
-class TrendingDrawer extends StatelessWidget {
-  const TrendingDrawer({Key? key}) : super(key: key);
+import 'package:shimmer_animation/shimmer_animation.dart';
+
+class TrandingProductWidget extends StatefulWidget {
+  String title;
+  TrandingProductWidget(
+      this.title,
+      );
+  @override
+  State<TrandingProductWidget> createState() => _TrandingProductWidgetState();
+}
+
+class _TrandingProductWidgetState extends State<TrandingProductWidget> {
+  //HttpRequests _httpRequests =HttpRequests();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Trending Products',style: TextStyle(color: Colors.black),),
-        centerTitle: true,
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
-          onPressed: (){
-            Navigator.pop(context);
-          },),
-      ),
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: ListView.separated(
-          //scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: 20,
+    return FutureBuilder(
+        future: getTrendingProduct(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<TrendingProducts> get = snapshot.data ?? <TrendingProducts>[];
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    widget.title == 'topselling'
+                        ? "Top Selling"
+                        : widget.title == 'TrendingProduct'
+                        ? 'Trending Product'
+                        : widget.title == 'TopRated'
+                        ? "Top Rated"
+                        : '',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // Row(
+                //   children: [
+                //     Container(
+                //       width: MediaQuery.of(context).size.width,
+                //       //width: 120,
+                //       height: 1,
+                //       color: Colors.amber,
+                //     ),
+                //     Container(
+                //       width: 80,
+                //       height: 4,
+                //       color: Colors.grey[300],
+                //     ),
+                //   ],
+                // ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: get.length < 3
+                      ? MediaQuery.of(context).size.width / 4
+                      : get.length >= 3
+                      ? (MediaQuery.of(context).size.width / 4) * 3
+                      : 0,
+                  child: GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 4 / 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10),
+                      itemCount: get.length == 1
+                          ? 1
+                          : get.length == 2
+                          ? 2
+                          : get.length == 3
+                          ? 3
+                          : 4,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          isThreeLine: true,
+                          leading: get[index].productThambnail != null
+                              ? Image.network(
+                            "https://bppshops.com/${get[index].productThambnail}",
+                            fit: BoxFit.cover,
+                          )
+                              : Image.network(
+                            'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          title: Text(
+                            "${get[index].productName}",
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 11,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 11,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 11,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 11,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.grey,
+                                      size: 10,
+                                    ),
+                                    Text(
+                                      "(14)",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Text(
+                                  "৳ ${double.tryParse(get[index].sellingPrice!)?.toStringAsFixed(1)}",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  "৳ ${double.tryParse(get[index].discountPrice!)?.toStringAsFixed(1)}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
             );
-          },
-          separatorBuilder: (context, index) {
-            DealsOfTheDayModel item = DealsOfTheDayModel.list[index];
-            return Container(
-
-              // height: 100,
-              width: MediaQuery.of(context).size.width*.7,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              child: Stack(
-                children: [
-                  Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width,
+          } else {
+            return Column(
+              children: [
+                Shimmer(
+                  duration: Duration(seconds: 2), //Default value
+                  interval: Duration(
+                      seconds: 1), //Default value: Duration(seconds: 0)
+                  color: Colors.black, //Colors.grey.shade700, //Default value
+                  colorOpacity: 0, //Default value
+                  enabled: true, //Default value
+                  direction: ShimmerDirection.fromLTRB(),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    height: 35,
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(
-                          image: AssetImage(
-                            item.productImageUrl.toString(),
-                          ),
-                          fit: BoxFit.cover),
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(6),
+                      // border:
+                      // Border.all(color: Colors.grey, width: 1)
                     ),
                   ),
-                  Positioned(
-                    bottom: -5,
-                    right: 0,
-                    // alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        //margin: EdgeInsets.symmetric(horizontal: 60),
-                        height: 60,
-                        width: MediaQuery.of(context).size.width*.4,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                item.productName.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: titleFontColor,
+                ),
+                Container(
+                    height: (MediaQuery.of(context).size.width / 4) * 2,
+                    child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 4 / 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Shimmer(
+                              duration: Duration(seconds: 2), //Default value
+                              interval: Duration(
+                                  seconds:
+                                  1), //Default value: Duration(seconds: 0)
+                              color: Colors
+                                  .black, //Colors.grey.shade700, //Default value
+                              colorOpacity: 0, //Default value
+                              enabled: true, //Default value
+                              direction: ShimmerDirection.fromLTRB(),
+                              child: Container(
+                                child: Center(
+                                  child: GradientText(
+                                    'Bpp Shop',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 0,
+                                    ),
+                                    gradient: LinearGradient(colors: [
+                                      // Colors.grey.shade900,
+                                      // Colors.grey.shade800,
+                                      // Colors.grey.shade700,
+                                      Colors.grey.shade500,
+                                      Colors.grey.shade500,
+                                      Colors.grey.shade500,
+                                      Colors.grey.shade500,
+                                      Colors.grey.shade500,
+                                      // Colors.grey.shade400,
+                                      // Colors.grey.shade300,
+                                      // Colors.grey.shade200,
+                                      // Colors.grey.shade100,
+                                      // Colors.teal,
+                                      // Colors.green,
+                                      // Colors.lightGreen,
+                                      // Colors.lime,
+                                      // Colors.yellow,
+                                      // Colors.amber,
+                                      // Colors.orange,
+                                      // Colors.deepOrange,
+                                    ]),
+                                    align: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                //   crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 8,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 8,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 8,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 8,
-                                  ),
-                                  Icon(
-                                    Icons.star_border_sharp,
-                                    color: Colors.orangeAccent,
-                                    size: 8,
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "\$ " + item.price.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: primaryColor,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                              ));
+                        })),
+              ],
             );
-          },
-          itemCount: DealsOfTheDayModel.list.length,
-        ),
-      ),
-    );
+          }
+        });
   }
 }

@@ -120,7 +120,7 @@ class AppStateController with ChangeNotifier{
       case 5:
         return PopularSeeAll();
       case 6:
-        return DealsOfTheDaySeeAll();
+       // return DealsOfTheDaySeeAll();
       default:
         return Container();
     }

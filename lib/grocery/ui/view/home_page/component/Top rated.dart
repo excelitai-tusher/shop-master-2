@@ -1,25 +1,29 @@
 import 'package:bpp_shop/bpp/component/gradient_text.dart';
+import 'package:bpp_shop/grocery/core/model/view%20model/http_grocery_trending%20_product.dart';
 import 'package:bpp_shop/models/islamic/trending_product_model.dart';
 import 'package:bpp_shop/view_model/islamic/http_trending_product.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class TrandingProductWidget extends StatefulWidget {
+import '../../../../core/model/view model/http_grocery_top_rated.dart';
+import '../../../../core/model/view model/http_top_selling_product.dart';
+
+class GroceryTopRatedProduct extends StatefulWidget {
   String title;
-  TrandingProductWidget(
-    this.title,
-  );
+  GroceryTopRatedProduct(
+      this.title,
+      );
   @override
-  State<TrandingProductWidget> createState() => _TrandingProductWidgetState();
+  State<GroceryTopRatedProduct> createState() => _GroceryTopRatedProductState();
 }
 
-class _TrandingProductWidgetState extends State<TrandingProductWidget> {
+class _GroceryTopRatedProductState extends State<GroceryTopRatedProduct> {
   //HttpRequests _httpRequests =HttpRequests();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getTrendingProduct(),
+        future: getTrendProduct(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<TrendingProducts> get = snapshot.data ?? <TrendingProducts>[];
@@ -33,38 +37,37 @@ class _TrandingProductWidgetState extends State<TrandingProductWidget> {
                     widget.title == 'topselling'
                         ? "Top Selling"
                         : widget.title == 'TrendingProduct'
-                            ? 'Trending Product'
-                            : widget.title == 'TopRated'
-                                ? "Top Rated"
-                                : '',
+                        ? 'Trending Product'
+                        : widget.title == 'TopRated'
+                        ? "Top Rated"
+                        : '',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                // Row(
-                //   children: [
-                //     Container(
-                //       width: MediaQuery.of(context).size.width,
-                //       //width: 120,
-                //       height: 1,
-                //       color: Colors.amber,
-                //     ),
-                //     Container(
-                //       width: 80,
-                //       height: 4,
-                //       color: Colors.grey[300],
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    // Container(
+                    //   width: 120,
+                    //   height: 4,
+                    //   color: Colors.amber,
+                    // ),
+                    // Container(
+                    //   width: 80,
+                    //   height: 4,
+                    //   color: Colors.grey[300],
+                    // ),
+                  ],
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: get.length < 3
                       ? MediaQuery.of(context).size.width / 4
                       : get.length >= 3
-                          ? (MediaQuery.of(context).size.width / 4) * 3
-                          : 0,
+                      ? (MediaQuery.of(context).size.width / 4) * 2
+                      : 0,
                   child: GridView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,27 +78,30 @@ class _TrandingProductWidgetState extends State<TrandingProductWidget> {
                       itemCount: get.length == 1
                           ? 1
                           : get.length == 2
-                              ? 2
-                              : get.length == 3
-                                  ? 3
-                                  : 4,
+                          ? 2
+                          : get.length == 3
+                          ? 3
+                          : 4,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return ListTile(
                           isThreeLine: true,
                           leading: get[index].productThambnail != null
                               ? Image.network(
-                                  "https://bppshops.com/${get[index].productThambnail}",
-                                  fit: BoxFit.cover,
-                                )
+                            "https://bppshops.com/${get[index].productThambnail}",
+                            fit: BoxFit.cover,
+                          )
                               : Image.network(
-                                  'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                          title: Text(
-                            "${get[index].productName}",
-                            style: TextStyle(color: Colors.black, fontSize: 15),
-                            overflow: TextOverflow.ellipsis,
+                            'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          title: Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: Text(
+                              "${get[index].productName}",
+                              style: TextStyle(color: Colors.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           subtitle: Container(
                             child: Column(
@@ -198,7 +204,7 @@ class _TrandingProductWidgetState extends State<TrandingProductWidget> {
                               duration: Duration(seconds: 2), //Default value
                               interval: Duration(
                                   seconds:
-                                      1), //Default value: Duration(seconds: 0)
+                                  1), //Default value: Duration(seconds: 0)
                               color: Colors
                                   .black, //Colors.grey.shade700, //Default value
                               colorOpacity: 0, //Default value

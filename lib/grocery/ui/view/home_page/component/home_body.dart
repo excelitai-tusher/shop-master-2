@@ -98,7 +98,7 @@ class HomeBody extends StatelessWidget {
                 leadingTitle: "Deals Of The Day",
                 trailingTitle: "View All",
               ),
-              DealsOfTheDayListView(),
+              //DealsOfTheDayListView(),
               Container(
                 //margin: EdgeInsets.symmetric(vertical: 8),
                 height: 150,

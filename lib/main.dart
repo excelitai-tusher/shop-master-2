@@ -42,6 +42,7 @@ import 'fashion/controller/app_bar_controler.dart';
 import 'fashion/view/home_page/home_page.dart';
 import 'grocery/ui/view/hamburger/hamburger1.dart';
 import 'grocery/ui/view/home_page/component/categories_list_view.dart';
+import 'grocery/ui/view/home_page/component/custom_tab_bar_right.dart';
 import 'grocery/ui/view/home_page/home_page_main.dart';
 
 final List<String> imgList = [
